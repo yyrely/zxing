@@ -37,6 +37,6 @@ public class ZxingController {
 		//设置二维码边的空度，非负数
 		hints.put(EncodeHintType.MARGIN, 0);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
-		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("D:\\upload\\zxing."+format).toPath());
+		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/zxing."+format).toPath());
 	}
 }
