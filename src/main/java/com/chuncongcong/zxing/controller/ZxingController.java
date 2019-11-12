@@ -41,7 +41,7 @@ public class ZxingController {
 		//设置二维码边的空度，非负数
 		hints.put(EncodeHintType.MARGIN, 0);
 
-		content = content + "brand="+zxingVo.getBrand() + "itemNumber="+zxingVo.getItemNumber() + "material="+zxingVo.getMaterial() + "yearMother=" + zxingVo.getYearMother();
+		content = content + "brand="+zxingVo.getBrand() + "&itemNumber="+zxingVo.getItemNumber() + "&material="+zxingVo.getMaterial() + "&yearMother=" + zxingVo.getYearMother();
 		log.info("content:{}", content);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 		String uuid = UUID.randomUUID().toString();
