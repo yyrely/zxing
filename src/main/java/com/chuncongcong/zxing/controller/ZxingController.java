@@ -3,6 +3,7 @@ package com.chuncongcong.zxing.controller;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +44,8 @@ public class ZxingController {
 		content = content + "brand="+zxingVo.getBrand() + "itemNumber="+zxingVo.getItemNumber() + "material="+zxingVo.getMaterial() + "yearMother=" + zxingVo.getYearMother();
 		log.info("content:{}", content);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
-		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/zxing." + format).toPath());
-		return "www.chuncongcong.com:8888/upload/zxing." + format;
+		String uuid = UUID.randomUUID().toString();
+		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/" + uuid + "." + format).toPath());
+		return "www.chuncongcong.com:8888/upload/" + uuid + "." + format;
 	}
 }
