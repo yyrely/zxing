@@ -29,7 +29,7 @@ public class ZxingController {
 
 	@GetMapping("/product/zxing")
 	public String productZxing(ZxingVo zxingVo) throws Exception {
-		String content = "http://www.chuncongcong.com?brand="+zxingVo.getBrand() + "&itemNumber="+zxingVo.getItemNumber() + "&material="+zxingVo.getMaterial() + "&yearMonth=" + zxingVo.getYearMonth();
+		String content = "http://sb.chuncongcong.com?brand="+zxingVo.getBrand() + "&itemNumber="+zxingVo.getItemNumber() + "&material="+zxingVo.getMaterial() + "&yearMonth=" + zxingVo.getYearMonth();
 		int width = 200;
 		int height = 200;
 		String format = "jpg";
