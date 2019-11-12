@@ -29,7 +29,7 @@ public class ZxingController {
 
 	@GetMapping("/product/zxing")
 	public String productZxing(ZxingVo zxingVo) throws Exception {
-		String content = "http://www.chuncongcong.com?";
+		String content = "http://www.chuncongcong.com?brand="+zxingVo.getBrand() + "&itemNumber="+zxingVo.getItemNumber() + "&material="+zxingVo.getMaterial() + "&yearMother=" + zxingVo.getYearMother();
 		int width = 200;
 		int height = 200;
 		String format = "jpg";
@@ -39,14 +39,12 @@ public class ZxingController {
 		// 指定纠错等级
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
 		//设置二维码边的空度，非负数
-		hints.put(EncodeHintType.MARGIN, 1);
-
-		content = content + "brand="+zxingVo.getBrand() + "&itemNumber="+zxingVo.getItemNumber() + "&material="+zxingVo.getMaterial() + "&yearMother=" + zxingVo.getYearMother();
+		hints.put(EncodeHintType.MARGIN, 0);
 		log.info("content:{}", content);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 		String uuid = UUID.randomUUID().toString();
 		String pathName = "/upload/" + uuid + "." + format;
 		MatrixToImageWriter.writeToPath(bitMatrix, format, new File(pathName).toPath());
-		return "www.chuncongcong.com:8888"+pathName;
+		return "http://www.chuncongcong.com:8888"+pathName;
 	}
 }
