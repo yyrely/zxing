@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.chuncongcong.zxing.vo.ZxingVo;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -23,9 +24,9 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 @RestController
 public class ZxingController {
 
-	@GetMapping("/test")
-	public void test() throws Exception {
-		String content = "https://www.baidu.com?dasdasdasdadasdadasdasdasdasdsadasdasdasdas";
+	@GetMapping("/product/zxing")
+	public String productZxing(ZxingVo zxingVo) throws Exception {
+		String content = "http://www.chuncongcong.com?";
 		int width = 200;
 		int height = 200;
 		String format = "jpg";
@@ -36,7 +37,11 @@ public class ZxingController {
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
 		//设置二维码边的空度，非负数
 		hints.put(EncodeHintType.MARGIN, 0);
+
+		content = content + "brand="+zxingVo.getBrand() + "itemNumber="+zxingVo.getItemNumber() + "material="+zxingVo.getMaterial() + "yearMother=" + zxingVo.getYearMother();
+
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
-		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/zxing."+format).toPath());
+		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/zxing." + format).toPath());
+		return "www.chuncongcong.com:8888/upload/zxing." + format;
 	}
 }
