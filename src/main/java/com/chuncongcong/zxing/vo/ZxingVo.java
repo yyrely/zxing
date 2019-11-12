@@ -16,5 +16,5 @@ public class ZxingVo {
 
 	private String material;
 
-	private String yearMother;
+	private String yearMonth;
 }
