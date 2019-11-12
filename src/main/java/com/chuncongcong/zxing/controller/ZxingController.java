@@ -13,8 +13,9 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.datamatrix.encoder.SymbolShapeHint;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author HU
@@ -22,6 +23,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  */
 
 @RestController
+@Slf4j
 public class ZxingController {
 
 	@GetMapping("/product/zxing")
@@ -39,7 +41,7 @@ public class ZxingController {
 		hints.put(EncodeHintType.MARGIN, 0);
 
 		content = content + "brand="+zxingVo.getBrand() + "itemNumber="+zxingVo.getItemNumber() + "material="+zxingVo.getMaterial() + "yearMother=" + zxingVo.getYearMother();
-
+		log.info("content:{}", content);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/zxing." + format).toPath());
 		return "www.chuncongcong.com:8888/upload/zxing." + format;
