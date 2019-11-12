@@ -39,13 +39,14 @@ public class ZxingController {
 		// 指定纠错等级
 		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
 		//设置二维码边的空度，非负数
-		hints.put(EncodeHintType.MARGIN, 0);
+		hints.put(EncodeHintType.MARGIN, 1);
 
 		content = content + "brand="+zxingVo.getBrand() + "&itemNumber="+zxingVo.getItemNumber() + "&material="+zxingVo.getMaterial() + "&yearMother=" + zxingVo.getYearMother();
 		log.info("content:{}", content);
 		BitMatrix bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 		String uuid = UUID.randomUUID().toString();
-		MatrixToImageWriter.writeToPath(bitMatrix, format, new File("/upload/" + uuid + "." + format).toPath());
-		return "www.chuncongcong.com:8888/upload/" + uuid + "." + format;
+		String pathName = "/upload/" + uuid + "." + format;
+		MatrixToImageWriter.writeToPath(bitMatrix, format, new File(pathName).toPath());
+		return "www.chuncongcong.com:8888"+pathName;
 	}
 }
